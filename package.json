@@ -1,0 +1,21 @@
+{
+  "name": "supabase-multitenant-b2b-demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Production-oriented Supabase/Postgres multi-tenant demo with RLS, role-based authorization, Realtime and Edge Functions.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "start": "supabase start",
+    "stop": "supabase stop",
+    "reset": "supabase db reset",
+    "lint:db": "supabase db lint --fail-on error",
+    "test": "supabase test db tests/rls.sql tests/permissions.sql",
+    "functions:serve": "supabase functions serve",
+    "example:realtime": "node examples/realtime.ts"
+  },
+  "devDependencies": {
+    "@supabase/supabase-js": "^2.45.0",
+    "supabase": "^2.84.0"
+  }
+}
