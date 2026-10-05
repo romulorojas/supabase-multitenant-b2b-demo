@@ -1,0 +1,23 @@
+name: test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  database:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: supabase/setup-cli@v1
+        with:
+          version: latest
+      - name: Start local stack
+        run: supabase start -x studio,imgproxy,inbucket,edge-runtime,logflare,vector,supavisor
+      - name: Lint schema
+        run: supabase db lint --fail-on error
+      - name: Rebuild database from migrations and seed
+        run: supabase db reset
+      - name: RLS and permission tests
+        run: supabase test db tests/rls.sql tests/permissions.sql
